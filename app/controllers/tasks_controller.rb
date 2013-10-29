@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = Task.all
+    @tempObjects = TempHoldTasks.all
   end
 
   # GET /tasks/1

@@ -10,12 +10,4 @@ class User < ActiveRecord::Base
     tasks = Task.find_all_by_user_id(self.id)
   end
 
-  def tags
-    if self.tasks do |task|
-      tags.
-    else
-      tags = nil
-    end
-  end
-
 end

@@ -19,7 +19,12 @@ class EmailHandlerController < ApplicationController
     end
     # Message parsed into broad objects
 
-    
+    @tempObj = TempHoldTasks.new();
+    @tempObj.sender = sender
+    @tempObj.subject = subject
+    @tempObj.body = actual_body
+
+    @tempObj.save()
 
 
 
