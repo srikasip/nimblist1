@@ -18,7 +18,7 @@
 
   .form-actions
     = f.submit nil, :class => 'btn btn-primary'
-    -if @user && @user.id > 0
+    -if @user && @user.id && @user.id>0
       = link_to t('.cancel', :default => t("helpers.links.cancel")), @user, :class => 'btn'
     -elsif @current_user && @current_user.is_admin
       = link_to t('.cancel', :default => t("helpers.links.cancel")), users_path, :class => 'btn'
