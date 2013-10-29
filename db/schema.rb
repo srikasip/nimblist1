@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131029014532) do
+ActiveRecord::Schema.define(version: 20131029201455) do
 
   create_table "tags", force: true do |t|
     t.string   "name"
@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(version: 20131029014532) do
     t.boolean  "is_complete"
     t.datetime "deadline"
     t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "temp_hold_tasks", force: true do |t|
+    t.string   "sender"
+    t.string   "subject"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -17,6 +17,12 @@ class EmailHandlerController < ApplicationController
       filename = stream.original_filename
       data = stream.read()
     end
-    render :text => "OK"
+    # Message parsed into broad objects
+
+    
+
+
+
+
   end
 end
