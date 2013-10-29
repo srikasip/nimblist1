@@ -10,6 +10,9 @@ Samplesite1::Application.routes.draw do
   resources :sessions
   get "sessions/new", :as => :login
 
+  resources :email_handler
+  post "email_handler#post"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
