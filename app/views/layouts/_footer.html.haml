@@ -5,8 +5,11 @@
         =link_to 'Home', root_path
       .btn
         =link_to 'About', static_pages_about_path
-      -if current_user && current_user.is_admin
+      -if current_user
         .btn
-          =link_to 'Users', users_path
+          =link_to 'My Tasks', tasks_path
+        -if current_user.is_admin
+          .btn
+            =link_to 'Users', users_path
     %p.navbar-text
       Everyone deserves to become her best self
