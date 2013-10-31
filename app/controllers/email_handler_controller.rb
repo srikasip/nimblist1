@@ -37,7 +37,7 @@ class EmailHandlerController < ApplicationController
       #if a response or a fwd, then get top level tags and store them with processed item tag
       #if a response is a first time, then parse for top level tags, and then get tags for each item
 
-      MailGun.create(:subject => params['subject'], :sender => params['sender'], :recipient => params['recipient'], :stripped_text => params['stripped-text'], :body_plain => params['body-plain'])
+      Mailgun.create(:subject => params['subject'], :sender => params['sender'], :recipient => params['recipient'], :stripped_text => params['stripped-text'], :body_plain => params['body-plain'])
       
       render :text=>'Success', :status=>:ok
 
