@@ -1,6 +1,8 @@
 class EmailHandlerController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
+  respond_to :html, :xml, :json
+  
   def post
     # process various message parameters:
     
