@@ -103,11 +103,13 @@ class EmailHandlerController < ApplicationController
           tempLine = line.gsub(/#\S*/, "")
 
           if tempLine.scan(/[A-Za-z0-9]/).count>0
-            items.push tempLine.squish
+            line_items = Array.new
+            line_items.push tempLine.squish
             
             line.scan(/#\S*/).each do |tag|
-              items.push tag
+              line_items.push tag
             end
+            items.push line_items
           end
         end
       end
