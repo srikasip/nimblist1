@@ -27,7 +27,12 @@ class EmailHandlerController < ApplicationController
           if line_item
             tags = Array.new
             task = Task.new
-            item = line_item.shift
+            item = line_item[0]
+            if line_item.length>0
+              line_item = line_item.from(1)
+            else
+              line_item = Array.new
+            end
             tags = base_tags + line_item
             task.create_task(user, item, tags)
           end
