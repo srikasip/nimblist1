@@ -2,7 +2,7 @@ class EmailHandlerController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   respond_to :html, :xml, :json
-  
+
   def post
     # process various message parameters:
     
@@ -27,7 +27,6 @@ class EmailHandlerController < ApplicationController
       #if a response or a fwd, then get top level tags and store them with processed item tag
       #if a response is a first time, then parse for top level tags, and then get tags for each item
 
-    respond_with(:status=>:ok)
 
     end
 
