@@ -19,9 +19,21 @@ class EmailHandlerController < ApplicationController
         tags = get_common_tags(params['stripped-text'])
         task = Task.new
         task.create_task(user, item, tags)
-        #redirect_to tasks_path, notice: 'Success: '+handle  
       else
-        #redirect_to tasks_path, notice: 'Failed: '+handle
+        base_tags = get_common_tags(params['stripped-text'])
+        #for line_items, the first element is the item.  All subsequent elements are tags.
+        line_items = get_line_items(params['stripped-text'])
+        line_items.each do |line_item|
+          if line_item
+            tags = Array.new
+            task = Task.new
+            item = line_item.shift
+            tags = base_tags + line_item
+            task.create_task(user, item, tags)
+          end
+        end
+
+      
       end
 
       #if a response or a fwd, then get top level tags and store them with processed item tag
@@ -92,9 +104,23 @@ class EmailHandlerController < ApplicationController
       return tags
     end
 
-    def GetIndividualTags(email_text)
+    def get_line_items(email_text)
+      items = Array.new
+      if email_text
+        email_text.scan(/.*/).each do |line|
+          tempLine = line.gsub(/#\S*/, "")
 
-      return tags
+          if tempLine.scan(/[A-Za-z0-9]/).count>0
+            items.push tempLine.squish
+            
+            line.scan(/#\S*/).each do |tag|
+              items.push tag
+            end
+          end
+        end
+      end
+
+      return items
     end
 
 end

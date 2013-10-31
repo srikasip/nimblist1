@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131031094248) do
+ActiveRecord::Schema.define(version: 20131031180159) do
 
   create_table "mailguns", force: true do |t|
     t.string   "sender"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20131031094248) do
     t.text     "stripped_text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "body_plain"
   end
 
   create_table "tags", force: true do |t|
