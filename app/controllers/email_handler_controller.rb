@@ -2,7 +2,6 @@ class EmailHandlerController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def post
-    @tempObj = TempHoldTasks.new
     # process various message parameters:
     handle = get_username(params['recipient'])
     user = User.find_by_name(handle)
@@ -18,21 +17,7 @@ class EmailHandlerController < ApplicationController
       #if a response or a fwd, then get top level tags and store them with processed item tag
       #if a response is a first time, then parse for top level tags, and then get tags for each item
     end
-    @tempObj.subject = params['subject']
 
-
-
-    # get the "stripped" body of the message, i.e. without
-    # the quoted part
-    @tempObj.body = params["stripped-text"]
-
-    # process all attachments:
-    count = params['attachment-count'].to_i
-    count.times do |i|
-      stream = params["attachment-#{i+1}"]
-      filename = stream.original_filename
-      data = stream.read()
-    end
     # Message parsed into broad objects
     if @tempObj.save()
       render 'Successful'
