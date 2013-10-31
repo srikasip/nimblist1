@@ -3,6 +3,7 @@ class EmailHandlerController < ApplicationController
 
   def post
     # process various message parameters:
+    
 
     handle = get_username(params['recipient'])
     user = User.find_by_name(handle)
@@ -12,15 +13,18 @@ class EmailHandlerController < ApplicationController
       #check if the email is a response or a fwd.
       if is_email_forward(params['subject'])
         item = params['subject'].sub!(/^re:/i, '')
-        tags = get_common_tags(params['stripped_text'])
+        tags = get_common_tags(params['stripped-text'])
         task = Task.new
         task.create_task(user, item, tags)
-        redirect_to tasks_path, notice: 'Success: '+handle  
+        #redirect_to tasks_path, notice: 'Success: '+handle  
       else
-        redirect_to tasks_path, notice: 'Failed: '+handle
+        #redirect_to tasks_path, notice: 'Failed: '+handle
       end
+
       #if a response or a fwd, then get top level tags and store them with processed item tag
       #if a response is a first time, then parse for top level tags, and then get tags for each item
+
+      return HttpResponse('OK')
     end
 
 
@@ -57,21 +61,27 @@ class EmailHandlerController < ApplicationController
 
 
     def get_username(email_id)
-      handle = email_id.gsub!(/@.*$/, "")
+      if email_id
+        handle = email_id.gsub!(/@.*$/, "")
+      else
+        handle=''
+      end
       return handle
     end
 
     def get_common_tags(email_text)
       tags = Array.new
       #parse the top lines for hashtags until we get to a line that has more than just hashtags
-      email_text.scan(/.*/).each do |line|
-        tempLine = line.gsub(/#\S*/, "")
+      if email_text
+        email_text.scan(/.*/).each do |line|
+          tempLine = line.gsub(/#\S*/, "")
 
-        if tempLine.scan(/[A-Za-z0-9]/).count>0
-          break
-        else
-          line.scan(/#\S*/).each do |tag|
-            tags.push tag
+          if tempLine.scan(/[A-Za-z0-9]/).count>0
+            break
+          else
+            line.scan(/#\S*/).each do |tag|
+              tags.push tag
+            end
           end
         end
       end
