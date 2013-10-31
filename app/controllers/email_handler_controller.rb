@@ -12,7 +12,8 @@ class EmailHandlerController < ApplicationController
     if user
       #check if the email is a response or a fwd.
       if is_email_forward(params['subject'])
-        item = params['subject'].sub!(/^re:/i, '')
+        item = params['subject'].gsub(/^re:|^fw:|^fwd:/i, '')
+        item = item.squish
         tags = get_common_tags(params['stripped-text'])
         task = Task.new
         task.create_task(user, item, tags)
@@ -24,7 +25,8 @@ class EmailHandlerController < ApplicationController
       #if a response or a fwd, then get top level tags and store them with processed item tag
       #if a response is a first time, then parse for top level tags, and then get tags for each item
 
-      return HttpResponse('OK')
+    respond_with(:status=>:ok)
+
     end
 
 
