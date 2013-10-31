@@ -1,0 +1,25 @@
+%h1 Listing mailguns
+
+%table
+  %tr
+    %th Sender
+    %th Recipient
+    %th Subject
+    %th Stripped-text
+    %th
+    %th
+    %th
+
+  - @mailguns.each do |mailgun|
+    %tr
+      %td= mailgun.sender
+      %td= mailgun.recipient
+      %td= mailgun.subject
+      %td= mailgun.stripped-text
+      %td= link_to 'Show', mailgun
+      %td= link_to 'Edit', edit_mailgun_path(mailgun)
+      %td= link_to 'Destroy', mailgun, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Mailgun', new_mailgun_path

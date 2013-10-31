@@ -3,27 +3,29 @@ class EmailHandlerController < ApplicationController
 
   def post
     # process various message parameters:
+
     handle = get_username(params['recipient'])
     user = User.find_by_name(handle)
+  
+    
     if user
       #check if the email is a response or a fwd.
       if is_email_forward(params['subject'])
         item = params['subject'].sub!(/^re:/i, '')
-        tags = get_common_tags(params['stripped-text'])
+        tags = get_common_tags(params['stripped_text'])
         task = Task.new
         task.create_task(user, item, tags)
+        redirect_to tasks_path, notice: 'Success: '+handle  
       else
+        redirect_to tasks_path, notice: 'Failed: '+handle
       end
       #if a response or a fwd, then get top level tags and store them with processed item tag
       #if a response is a first time, then parse for top level tags, and then get tags for each item
     end
 
+
+
     # Message parsed into broad objects
-    if @tempObj.save()
-      render 'Successful'
-    else
-      render 'Unsuccessful'
-    end
 
     #-------------Different Email sending formats--------------#
     #1. A forwarded email with hash tags
@@ -39,15 +41,13 @@ class EmailHandlerController < ApplicationController
     #Step 3: Parse the Email
 
   end
-  
 
   private
 
     def is_email_forward(subject)
+      reg_for = /^re:|^fwd:|^fw:/i
       is_forward = false
-      if subject.match(/^re:/i)
-        is_forward = true
-      elsif subject.match(/^fwd:/i)
+      if reg_for.match(subject)
         is_forward = true
       else
         is_forward = false
@@ -57,7 +57,7 @@ class EmailHandlerController < ApplicationController
 
 
     def get_username(email_id)
-      handle = email_id.sub!(/@.*$/, "")
+      handle = email_id.gsub!(/@.*$/, "")
       return handle
     end
 
@@ -65,7 +65,7 @@ class EmailHandlerController < ApplicationController
       tags = Array.new
       #parse the top lines for hashtags until we get to a line that has more than just hashtags
       email_text.scan(/.*/).each do |line|
-        tempLine = line.sub!(/#\S*/, "")
+        tempLine = line.gsub(/#\S*/, "")
 
         if tempLine.scan(/[A-Za-z0-9]/).count>0
           break

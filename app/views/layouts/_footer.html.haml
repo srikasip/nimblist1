@@ -5,6 +5,8 @@
         =link_to 'Home', root_path
       .btn
         =link_to 'About', static_pages_about_path
+      .btn
+        =link_to 'MailGun', new_mailgun_path
       -if current_user
         .btn
           =link_to 'My Tasks', tasks_path

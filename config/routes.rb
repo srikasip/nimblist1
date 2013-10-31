@@ -1,4 +1,6 @@
 Samplesite1::Application.routes.draw do
+  resources :mailguns
+
   resources :tasks
 
   resources :users
@@ -11,6 +13,7 @@ Samplesite1::Application.routes.draw do
   get "sessions/new", :as => :login
 
   post "email_handler/post", :as => :receive_email
+  get "email_handler/newStuff", :as => :forward_on_email
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

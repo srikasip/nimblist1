@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Sender:
+  = @mailgun.sender
+%p
+  %b Recipient:
+  = @mailgun.recipient
+%p
+  %b Subject:
+  = @mailgun.subject
+%p
+  %b Stripped-text:
+  = @mailgun.stripped-text
+
+= link_to 'Edit', edit_mailgun_path(@mailgun)
+\|
+= link_to 'Back', mailguns_path

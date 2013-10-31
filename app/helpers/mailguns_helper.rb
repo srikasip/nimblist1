@@ -1,0 +1,2 @@
+module MailgunsHelper
+end
