@@ -46,3 +46,20 @@
         %td= temptask.subject
         %td= temptask.body
         %td=l temptask.created_at
+
+%br
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:task_id)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:created_at)
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @tags.each do |tag|
+      %tr
+        %td= tag.id
+        %td= tag.task_id
+        %td= tag.name
+        %td=l tag.created_at

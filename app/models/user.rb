@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
 
   def tasks
-    tasks = Task.find_all_by_user_id(self.id)
+    tasks = Task.find_all_by_user_id(self.id).task_id
   end
 
 end

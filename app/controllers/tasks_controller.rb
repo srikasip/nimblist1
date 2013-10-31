@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
+  before_filter :signed_in?
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
   # GET /tasks.json
   def index
     @tasks = Task.all
-    @tempObjects = TempHoldTasks.all
   end
 
   # GET /tasks/1
