@@ -7,7 +7,14 @@ class User < ActiveRecord::Base
 
 
   def tasks
-    tasks = Task.find_all_by_user_id(self.id).task_id
+    tasks = Task.find_all_by_user_id(self.id)
+  end
+
+  def tags
+    my_task_ids = Task.select(:id).where("user_id = ?", self.id)
+    my_tag_ids = TaskTags.select(:tag_id).where(task_id: my_task_ids)
+    tags = Tags.where(id: my_tag_ids).distinct
+    return tags
   end
 
 end

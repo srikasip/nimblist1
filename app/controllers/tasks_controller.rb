@@ -5,8 +5,8 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
-    @tags = Tags.all
+    @tasks = current_user.tasks
+    @tags = current_user.tags
   end
 
   # GET /tasks/1
@@ -72,5 +72,9 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:user_id, :item, :is_complete, :deadline, :location)
+    end
+
+    def current_user
+      current_user ||= User.find(session[:user_id]) if session[:user_id]
     end
 end

@@ -87,7 +87,7 @@ class EmailHandlerController < ApplicationController
             break
           else
             line.scan(/#\S*/).each do |tag|
-              tags.push tag
+              tags.push tag.downcase
             end
           end
         end
@@ -107,7 +107,7 @@ class EmailHandlerController < ApplicationController
             line_items.push tempLine.squish
             
             line.scan(/#\S*/).each do |tag|
-              line_items.push tag
+              line_items.push tag.downcase
             end
             items.push line_items
           end
