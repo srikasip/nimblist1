@@ -6,11 +6,13 @@
       %h3.panel-title
         My Tags
     .panel-body
-      -@tags.each do |tag|
-        =tag.name
+      %ul.list-group
+        -@tags.each do |tag|
+          %li.list-group-item
+            =tag.name
 
 .span9
-  .panel.panel-info
+  .panel.panel-default
     .panel-heading
       %h3.panel-title
         My Tasks
