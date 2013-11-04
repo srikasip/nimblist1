@@ -12,13 +12,18 @@
  *= require_tree .
  */
 
-html, body { height:100%;}
-#wrap { min-height:100%;}
+html, body { 
+  height:100%;
+}
+
+#wrap {
+  min-height:100%;
+}
 
 #main 
 { 
   overflow:auto;
-  padding-bottom:40px;
+  padding-bottom:40px;  
 }
 .footer
 {

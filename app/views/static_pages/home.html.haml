@@ -1,6 +1,29 @@
-%h1
-  Welcome to Nimblist!
-  %br
-  %small
-    finish stuff. live better.
+.hero-unit
+  %h1
+    Nimblist
+    %small
+      finish more. live better.
 
+
+  %hr
+  .row
+    .span2
+    .span2
+      %h4='Step 1: Signup'
+      =link_to image_tag('handy-icon_01.png'), login_path, :class=>'no-hover-back'
+      %h5
+        %small='Signup with a username and password'
+    .span1
+    .span2
+      %h4='Step 2: Email'
+      =image_tag 'handy-icon_02.png'
+      %h5
+        %small='Email lists or forward emails to username@nimblist.com with appropriate #tags'
+    .span1
+    .span2
+      %h4='Step 3: Finish'
+      =link_to image_tag('handy-icon_03.png'), tasks_path, :class=>'no-hover-back'
+      %h5
+        %small='Browse your tasks online and get stuff done.'
+    .span2
+  %hr
