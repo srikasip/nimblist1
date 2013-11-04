@@ -29,12 +29,13 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.name = @user.name.downcase
 
     respond_to do |format|
       if @user.save
-        @adminUser = User.find(User.minimum(:id))
-        @adminUser.is_admin = true
-        @adminUser.save();
+        #@adminUser = User.find(User.minimum(:id))
+        #@adminUser.is_admin = true
+        #@adminUser.save
         session[:user_id] = @user.id
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
@@ -51,6 +52,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
       if @user.update(user_params)
+        @user.name = @user.name.downcase
+        @user.save
         format.html { redirect_to @user, notice: 'Profile was successfully updated.' }
         format.json { head :no_content }
       else
