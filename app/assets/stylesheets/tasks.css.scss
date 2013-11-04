@@ -4,16 +4,28 @@
 
 .item_row
 {
+  padding-left: 10px;
   padding-top:5px;
   padding-bottom:5px;
 
   border-bottom:1px solid #00000;
 }
+.item-selected
+{
+  background-color:#5BC0DE;
+}
 .my-tasks
 {
-  height:100%;
 }
 .my-tags
 {
+}
+span.task-item
+{
+  cursor:pointer;
+}
+.item-details
+{
+  background-color:Yellow;
   height:100%;
 }

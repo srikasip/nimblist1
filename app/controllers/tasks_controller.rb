@@ -10,8 +10,12 @@ class TasksController < ApplicationController
     else
       @activeTag = 0
     end
+    if params[:active_task]
+      @task = Task.find(params[:active_task])
+    end
     @tasks = current_user.tasks(@activeTag)
     @tags = current_user.tags
+
   end
 
   # GET /tasks/1
@@ -26,6 +30,15 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    respond_to do |format|
+      format.json { render :json => {:success => true, :html => (render_to_string edit_task_path(@task))} }
+      format.html { render :layout => !request.xhr? }
+    end
+
+
+
+
+
   end
 
   # POST /tasks
@@ -49,7 +62,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to tasks_path, notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

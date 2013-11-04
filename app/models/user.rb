@@ -25,3 +25,5 @@ class User < ActiveRecord::Base
 
 
 end
+
+#Elizabeth Yin, co-founder of Launchbit

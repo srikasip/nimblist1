@@ -2,7 +2,7 @@
 .page-header
   %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
 
-.span2.my-tags.well
+.span2.my-tags.well.well-small
   %h4= "my tags"
   .nav.nav-pills.nav-stacked
     -if @activeTag == 0
@@ -17,9 +17,25 @@
       -else
         %li=link_to tag.name, :active_tag=>tag.id
 
-.span9.my-tasks.well
-  %h4= "My Tasks"
-  -@tasks.each do |task|
-    .item_row
-      =check_box_tag "task_#{task.id}", task.is_complete
-      =text_field_tag "task_item_#{task.id}", task.item, :style=>'width:80%;'
+-if @task
+  .span5.my-tasks
+    %h4= "My Tasks"
+    -@tasks.each do |task|
+      -if @task.id == task.id
+        .item_row.item-selected{:id=>"task_item_#{task.id}"}
+          =check_box_tag "task_#{task.id}", task.is_complete
+          = link_to task.item, :active_tag=>@activeTag, :active_task=>task.id
+      -else
+        .item_row{:id=>"task_item_#{task.id}"}
+          =check_box_tag "task_#{task.id}", task.is_complete
+          = link_to task.item, :active_tag=>@activeTag, :active_task=>task.id
+  .span5#item-details
+    = render :partial => "edit"
+
+-else
+  .span10.my-tasks
+    %h4= "My Tasks"
+    -@tasks.each do |task|
+      .item_row{:id=>"task_item_#{task.id}"}
+        =check_box_tag "task_#{task.id}", task.is_complete
+        = link_to task.item, :active_tag=>@activeTag, :active_task=>task.id  
