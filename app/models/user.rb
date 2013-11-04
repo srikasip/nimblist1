@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   def tasks(active_tag_id)
     if active_tag_id != 0
       all_tasks = Task.select(:task_id).where('user_id=?', self.id)
-      taskTags = TaskTags.select(:task_id).where(:tag_id=>active_tag_id, :task_id=>all_tasks).distinct
-      tasks = Task.where(id: taskTags)
+      taskTags = TaskTags.select(:task_id).where(:tag_id=>active_tag_id).distinct
+      tasks = Task.where(:id=> taskTags, :user_id=>self.id)
     else
       tasks = Task.find_all_by_user_id(self.id)
     end
