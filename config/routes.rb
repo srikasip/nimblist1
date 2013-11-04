@@ -2,6 +2,7 @@ Samplesite1::Application.routes.draw do
   resources :mailguns
 
   resources :tasks
+  post "tasks/change_status"
 
   resources :users
 

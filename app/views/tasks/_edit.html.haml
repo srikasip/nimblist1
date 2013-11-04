@@ -4,11 +4,11 @@
   .control-group
     = f.label :item, :class => 'control-label'
     .controls
-      = f.text_field :item, :class => 'text_field'
+      = f.text_area :item, :row=>3, :class => 'text_area'
   .control-group
     = f.label :is_complete, :class => 'control-label'
     .controls
-      = f.text_field :is_complete, :class => 'text_field'
+      = f.check_box :is_complete, :class=>'task_is_complete'
   .control-group
     = f.label :deadline, :class => 'control-label'
     .controls

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :signed_in?
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :change_status]
 
   # GET /tasks
   # GET /tasks.json
@@ -16,6 +16,11 @@ class TasksController < ApplicationController
     @tasks = current_user.tasks(@activeTag)
     @tags = current_user.tags
 
+  end
+
+  def change_status
+    @task.is_complete = !@task.is_complete
+    @task.save()
   end
 
   # GET /tasks/1
