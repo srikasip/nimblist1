@@ -1,23 +1,25 @@
 - model_class = Task
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
 
-.span3
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title
-        My Tags
-    .panel-body
-      %ul.list-group
-        -@tags.each do |tag|
-          %li.list-group-item
-            =tag.name
+.span2.my-tags.well
+  %h4= "my tags"
+  .nav.nav-pills.nav-stacked
+    -if @activeTag == 0
+      %li.active=link_to '#all tags', :active_tag=>'0'
+    -else
+      %li=link_to '#all tags', :active_tag=>'0'
+    
 
-.span9
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title
-        My Tasks
-    .panel-body
-      %ul.list-group
-        -@tasks.each do |task|
-          %li.list-group-item
-            =task.item
+    -@tags.each do |tag|
+      -if @activeTag == tag.id
+        %li.active=link_to tag.name, :active_tag=>tag.id
+      -else
+        %li=link_to tag.name, :active_tag=>tag.id
+
+.span9.my-tasks.well
+  %h4= "My Tasks"
+  -@tasks.each do |task|
+    .item_row
+      =check_box_tag "task_#{task.id}", task.is_complete
+      =text_field_tag "task_item_#{task.id}", task.item, :style=>'width:80%;'

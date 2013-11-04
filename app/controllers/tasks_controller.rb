@@ -5,7 +5,12 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = current_user.tasks
+    if params[:active_tag]
+      @activeTag = params[:active_tag].to_i
+    else
+      @activeTag = 0
+    end
+    @tasks = current_user.tasks(@activeTag)
     @tags = current_user.tags
   end
 

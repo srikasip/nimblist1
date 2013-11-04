@@ -6,8 +6,14 @@ class User < ActiveRecord::Base
   has_many :tasks
 
 
-  def tasks
-    tasks = Task.find_all_by_user_id(self.id)
+  def tasks(active_tag_id)
+    if active_tag_id != 0
+      all_tasks = Task.select(:task_id).where('user_id=?', self.id)
+      taskTags = TaskTags.select(:task_id).where(tag_id: active_tag_id, task_id: all_tasks).distinct
+      tasks = Task.where(id: taskTags)
+    else
+      tasks = Task.find_all_by_user_id(self.id)
+    end
   end
 
   def tags
@@ -16,5 +22,6 @@ class User < ActiveRecord::Base
     tags = Tags.where(id: my_tag_ids).distinct
     return tags
   end
+
 
 end

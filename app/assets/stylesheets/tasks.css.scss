@@ -1,3 +1,19 @@
 // Place all the styles related to the tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.item_row
+{
+  padding-top:5px;
+  padding-bottom:5px;
+
+  border-bottom:1px solid #00000;
+}
+.my-tasks
+{
+  height:100%;
+}
+.my-tags
+{
+  height:100%;
+}
