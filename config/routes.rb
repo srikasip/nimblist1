@@ -3,6 +3,8 @@ Samplesite1::Application.routes.draw do
 
   resources :tasks
   post "tasks/change_status"
+  get "tasks/add_tag", :as => :add_tag
+  get "tasks/remove_tag", :as => :remove_tag
 
   resources :users
 

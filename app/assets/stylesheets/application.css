@@ -16,14 +16,17 @@ html, body {
   height:100%;
 }
 
+
+
 #wrap {
+  height:100%;
   min-height:100%;
 }
 
 #main 
-{ 
+{
   overflow:auto;
-  padding-bottom:40px;  
+  padding-bottom:40px;
 }
 .footer
 {
@@ -51,4 +54,14 @@ html, body {
     margin-left: -20px;
     margin-right: -20px;
   }
+}
+
+a.no-hover-back:hover
+{
+    background-color:Transparent;
+}
+img.tiny_image
+{
+  height:16px;
+  width:16px;
 }

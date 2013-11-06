@@ -1,20 +1,29 @@
 .navbar.navbar-fixed-top
   .navbar-inner
     .container-fluid
-      %a.btn.btn-navbar{"data-toggle"=>'collapse', 'data-target'=>'.nav-collapse'}
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-
       =link_to 'nimblist.com', root_path, :class=>'brand no-hover-back'
-      .nav-collapse
-        %ul.nav.pull-right
-          %li=link_to "About", static_pages_about_path
-          %li=link_to "Home", root_path
-          -if current_user
-            %li=link_to "Logout", session_path(:current), method: :delete
-            %li=link_to 'Welcome, ' + current_user.name + '!', current_user
-            %li=link_to "My Tasks", tasks_path
-          -else
+      -if !current_user
+        %a.btn.btn-navbar{"data-toggle"=>'collapse', 'data-target'=>'.nav-collapse'}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+
+        .nav-collapse
+          %ul.nav.pull-right
+            %li=link_to "About", static_pages_about_path
+            %li=link_to "Home", root_path
             %li=link_to "Login", login_path
             %li=link_to "Signup", new_user_path
+      -else
+        .nav.pull-right
+          .btn-group
+            %button.btn
+              %a.no-hover-back{:href=>tasks_path}
+                %i.icon-user
+                ='Welcome, '+current_user.name+'!'
+            %button.btn.dropdown-toggle(data-toggle="dropdown")
+              %span.caret
+            %ul.dropdown-menu
+              %li=link_to "My List", tasks_path
+              %li=link_to "Profile", current_user
+              %li=link_to "Logout", session_path(:current), method: :delete

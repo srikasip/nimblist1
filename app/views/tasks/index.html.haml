@@ -2,40 +2,42 @@
 .page-header
   %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
 
-.span2.my-tags.well.well-small
-  %h4= "my tags"
-  .nav.nav-pills.nav-stacked
-    -if @activeTag == 0
-      %li.active=link_to '#all tags', :active_tag=>'0'
-    -else
-      %li=link_to '#all tags', :active_tag=>'0'
-    
+.row-fluid
 
-    -@tags.each do |tag|
-      -if @activeTag == tag.id
-        %li.active=link_to tag.name, :active_tag=>tag.id
+  .span2.my-tags.well.well-small
+    %h4= "my tags"
+    .nav.nav-pills.nav-stacked
+      -if @activeTag == 0
+        %li.active=link_to '#all tags', :active_tag=>'0'
       -else
-        %li=link_to tag.name, :active_tag=>tag.id
+        %li=link_to '#all tags', :active_tag=>'0'
+      
 
--if @task
-  .span5.my-tasks
-    %h4= "My Tasks"
-    -@tasks.each do |task|
-      -if @task.id == task.id
-        .item_row.item-selected{:id=>"task_item_#{task.id}"}
-          =check_box_tag "task_#{task.id}", task.id, task.is_complete, :class=>'task_is_complete', :disabled=>'disabled'
-          =link_to task.item, :active_tag=>@activeTag, :active_task=>task.id
-      -else
+      -@tags.each do |tag|
+        -if @activeTag == tag.id
+          %li.active=link_to tag.name, :active_tag=>tag.id
+        -else
+          %li=link_to tag.name, :active_tag=>tag.id
+
+  -if @task
+    .span5.my-tasks
+      %h4= "My Tasks"
+      -@tasks.each do |task|
+        -if @task.id == task.id
+          .item_row.item-selected{:id=>"task_item_#{task.id}"}
+            =check_box_tag "task_#{task.id}", task.id, task.is_complete, :class=>'task_is_complete', :disabled=>'disabled'
+            =link_to task.item, :active_tag=>@activeTag, :active_task=>task.id
+        -else
+          .item_row{:id=>"task_item_#{task.id}"}
+            =check_box_tag "task_#{task.id}", task.id, task.is_complete, :class=>'task_is_complete', :disabled=>'disabled'
+            =link_to task.item, :active_tag=>@activeTag, :active_task=>task.id
+    .span5.item-details
+      = render :partial => "edit"
+
+  -else
+    .span10.my-tasks
+      %h4= "My Tasks"
+      -@tasks.each do |task|
         .item_row{:id=>"task_item_#{task.id}"}
           =check_box_tag "task_#{task.id}", task.id, task.is_complete, :class=>'task_is_complete', :disabled=>'disabled'
           =link_to task.item, :active_tag=>@activeTag, :active_task=>task.id
-  .span5.item-details
-    = render :partial => "edit"
-
--else
-  .span10.my-tasks
-    %h4= "My Tasks"
-    -@tasks.each do |task|
-      .item_row{:id=>"task_item_#{task.id}"}
-        =check_box_tag "task_#{task.id}", task.id, task.is_complete, :class=>'task_is_complete', :disabled=>'disabled'
-        =link_to task.item, :active_tag=>@activeTag, :active_task=>task.id  

@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_filter :signed_in?
   before_action :set_task, only: [:show, :edit, :update, :destroy, :change_status]
+  #layout :resolve_layout
 
   # GET /tasks
   # GET /tasks.json
@@ -17,6 +18,24 @@ class TasksController < ApplicationController
     @tags = current_user.tags
 
   end
+
+  def add_tag
+    task_id = params[:id]
+    tag_name = params[:new_tag]
+    if task_id && tag_name
+      Tags.check_create(tag_name, task_id)
+    end
+  end
+  def remove_tag
+    task_id = params[:id]
+    tag_id = params[:id]
+
+    if task_id && tag_name
+      task_tag = TaskTags.where("task_id = ? and tag_id = ?", task_id, tag_id)
+      task_tag.destroy
+    end
+  end
+
 
   def change_status
     @task.is_complete = !@task.is_complete
@@ -99,5 +118,14 @@ class TasksController < ApplicationController
 
     def current_user
       current_user ||= User.find(session[:user_id]) if session[:user_id]
+    end
+
+    def resolve_layout
+      case action_name
+      when "index"
+        "task_list_layout"
+      else
+        "application"
+      end
     end
 end

@@ -1,5 +1,9 @@
 class SessionsController < ApplicationController
   def new
+    if session[:user_id]
+      flash[:notice] = 'You are already logged in. If this is not you, then please log out and log back in as a different user.'
+      redirect_to tasks_path
+    end
   end
 
   def create
