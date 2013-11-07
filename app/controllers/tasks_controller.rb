@@ -36,10 +36,19 @@ class TasksController < ApplicationController
     end
   end
 
-
   def change_status
     @task.is_complete = !@task.is_complete
-    @task.save()
+    if @task.save()
+      respond_to do |format|
+        format.json { render :json => {:success => true, :html=> 'Success'}}
+        format.html { render 'Success' }
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => {:success => false, :error=>true, :html=> 'Failed'}}
+        format.html { render 'Failed' }
+      end
+    end
   end
 
   # GET /tasks/1
@@ -58,11 +67,6 @@ class TasksController < ApplicationController
       format.json { render :json => {:success => true, :html => (render_to_string edit_task_path(@task))} }
       format.html { render :layout => !request.xhr? }
     end
-
-
-
-
-
   end
 
   # POST /tasks
