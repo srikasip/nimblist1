@@ -10,19 +10,17 @@
           Complete
         -else
           Incomplete
-  .item-details-row
+  .item-details-row#tagBox
     -@task.tags.each do |tag|
-      %span.badge.pull-right=tag.name
+      %span.badge.pull-right.tag_badge_item=tag.name
   .item-details-row
     = f.text_area :item, :row=>6, :class => 'text_area input'
 
   .item-details-row.input-prepend.input-append
     %span.add-on='#'
-    =text_field 'newTask',nil,:class=>'form-control new-tag', :placeholder=>'newtag...'
+    =text_field 'anotherTag',nil,:class=>'form-control new-tag', :placeholder=>'newtag...', :id=>'text_add_tag'
     %span.add-on#add_tag=image_tag('up.png', :class=>'tiny_image')
-    =#link_to image_tag('up.png', :class=>'tiny_image'),add_tag_path(:id=>@task.id, :new_tag=>), :class=>'no-hover-back'
 
-    /%span.badge.pull-left=link_to '+tag', '#', :class=>'no-hover-back'
   .item-details-row
     = f.text_field :deadline, :class => 'text_field input', :placeholder=>'Deadline here...'
   .item-details-row
@@ -31,4 +29,4 @@
     = f.submit 'Save', :class => 'btn btn-primary task_item_submit'
     .pull-right
       =link_to image_tag('cancel_save.png', :class=>'item-icon-btn'), tasks_path, :class=>'no-hover-back'
-      =link_to image_tag('trash.png', :class=>'item-icon-btn'), task_path(@task), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class=>'no-hover-back'
+      =link_to image_tag('trash.png', :class=>'item-icon-btn'), task_path(@task), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class=>'no-hover-back', :id =>'delete_button_editItem'

@@ -25,15 +25,32 @@ class TasksController < ApplicationController
     if task_id && tag_name
       Tags.check_create(tag_name, task_id)
     end
+
+    respond_to do |format|
+      format.json { render :json => {:success => true, :html=> 'Success'}}
+      format.html { render 'Success' }
+    end    
+
+
   end
   def remove_tag
-    task_id = params[:id]
-    tag_id = params[:id]
+    task_id = params[:task_id]
+    tag_name = params[:tag_name]
 
     if task_id && tag_name
-      task_tag = TaskTags.where("task_id = ? and tag_id = ?", task_id, tag_id)
-      task_tag.destroy
+      tag = Tags.where('name = ?', tag_name);
+      if(tag)
+        task_tag = TaskTags.where("task_id = ? and tag_id = ?", task_id, tag.id)
+        if task_tag
+          task_tag.destroy
+        end
+      end
     end
+
+    respond_to do |format|
+      format.json { render :json => {:success => true, :html=> 'Success'}}
+      format.html { render 'Success' }
+    end    
   end
 
   def change_status

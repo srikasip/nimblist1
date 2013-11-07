@@ -36,6 +36,43 @@ function LoadHandlers()
       }
     });
   });
+
+
+
+  $('#add_tag').click(function(){
+    var tagLine = $('#text_add_tag').val();
+    tagLine = $.trim(tagLine);
+    var id = $('.item-selected').attr('id');
+    id = id.replace('task_item_', '');
+    if(tagLine!='')
+    {
+      tagLine = tagLine.replace('#', '');
+      var newTags = tagLine.split(' ');
+      if(newTags.length>0)
+      {
+        var newTag = "#" + newTags[0];
+        $.ajax({
+          url: 'tasks/add_tag',
+          data: {'id': id, 'new_tag': newTag},
+          type: 'POST',
+          beforeSend: function(xhr){},
+          success: function(result, status, xhr){
+            $('#tagBox').append("<span class='badge pull-right'>"+newTag+"</span>");
+            $('#text_add_tag').val('');
+          },
+          error: function(xhr, status, error){ alert("Failed to add a new Tag. Please refresh and try again later.");}
+        });
+      }
+    }
+  });
+
+
+  $('#text_add_tag').keypress(function(e){
+    if (e.keyCode == 13) {
+      $('#add_tag').click();
+      return false; // prevent the button click from happening
+    }
+  });
 }
 
 
