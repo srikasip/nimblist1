@@ -12,7 +12,9 @@
           Incomplete
   .item-details-row#tagBox
     -@task.tags.each do |tag|
-      %span.badge.pull-right.tag_badge_item=tag.name
+      %span.badge.pull-right.tag_badge_item
+        %span.tag_delete='x'
+        %span.tag_display=tag.name
   .item-details-row
     = f.text_area :item, :row=>6, :class => 'text_area input'
 

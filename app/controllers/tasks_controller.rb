@@ -38,11 +38,11 @@ class TasksController < ApplicationController
     tag_name = params[:tag_name]
 
     if task_id && tag_name
-      tag = Tags.where('name = ?', tag_name);
-      if(tag)
-        task_tag = TaskTags.where("task_id = ? and tag_id = ?", task_id, tag.id)
+      tag_id = Tags.select(:id).where('name = ?', tag_name);
+      if tag_id
+        task_tag = TaskTags.where("task_id = ? and tag_id = ?", task_id, tag_id)
         if task_tag
-          task_tag.destroy
+          task_tag.delete_all;
         end
       end
     end

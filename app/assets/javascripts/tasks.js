@@ -57,6 +57,7 @@ function LoadHandlers()
           type: 'POST',
           beforeSend: function(xhr){},
           success: function(result, status, xhr){
+            var span = "<span class='badge pull-right'><span class='tag_delete'>x</span>"+newTag+"</span>"
             $('#tagBox').append("<span class='badge pull-right'>"+newTag+"</span>");
             $('#text_add_tag').val('');
           },
@@ -66,12 +67,35 @@ function LoadHandlers()
     }
   });
 
-
   $('#text_add_tag').keypress(function(e){
     if (e.keyCode == 13) {
       $('#add_tag').click();
       return false; // prevent the button click from happening
     }
+  });
+
+
+
+
+  $('span.tag_delete').click(function(){
+    var spanBox = $(this).parent();
+    tagText = $(spanBox).find('span.tag_display').html();
+    var task_id = $('.item-selected').attr('id');
+    task_id = task_id.replace('task_item_', '');
+    $(spanBox).remove();
+
+    $.ajax({
+      url: 'tasks/remove_tag',
+      data: {'task_id': task_id , 'tag_name' : tagText},
+      type: 'POST',
+      beforeSend: function(xhr){},
+      success: function(result, status, xhr){
+        $(spanBox).remove();
+      },
+      error: function(xhr, status, error){ alert("Failed to add a new Tag. Please refresh and try again later.");}
+    });
+
+    return false;
   });
 }
 
