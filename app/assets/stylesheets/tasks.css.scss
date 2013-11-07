@@ -26,6 +26,7 @@ span.task-item
 }
 .item-details
 {
+  position:relative;
   border-left:solid 1px #A0A0A0;
 }
 
@@ -100,4 +101,20 @@ img.item-icon-btn
   top:0px;
   color:#e0e0e0;
   margin-right:3px;
+}
+.loading_editTask_image
+{
+  margin-left: 45%;
+  margin-top:30%;
+}
+
+.loadingPanel
+{
+  position:absolute;
+  top:0px;
+  left:0px;
+  height:100%;
+  width:100%;
+  background-image: image-url("transparentModal.png");
+  background-repeat: repeat;
 }

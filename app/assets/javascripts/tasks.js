@@ -37,8 +37,6 @@ function LoadHandlers()
     });
   });
 
-
-
   $('#add_tag').click(function(){
     var tagLine = $('#text_add_tag').val();
     tagLine = $.trim(tagLine);
@@ -74,9 +72,6 @@ function LoadHandlers()
     }
   });
 
-
-
-
   $('span.tag_delete').click(function(){
     var spanBox = $(this).parent();
     tagText = $(spanBox).find('span.tag_display').html();
@@ -92,17 +87,32 @@ function LoadHandlers()
       success: function(result, status, xhr){
         $(spanBox).remove();
       },
-      error: function(xhr, status, error){ alert("Failed to add a new Tag. Please refresh and try again later.");}
+      error: function(xhr, status, error){ alert("Failed to remove tag from this item. Please refresh and try again later.");}
     });
 
     return false;
   });
-}
 
+  $('form.task_edit_form').on('ajax:beforeSend', function(xhr){
+    var waitBlock = '<div class="loadingPanel"><img class="loading_editTask_image" src="/assets/loading.gif" alt="Saving Item" /></div>';
+    $(this).after(waitBlock);
+  });
+
+  $('form.task_edit_form').on('ajax:success', function(xhr, data, status){
+    $('.loadingPanel').remove();
+    $(this).before(flash);
+  });
+
+  $('form.task_edit_form').on('ajax:error', function(xhr, data, status){
+    $('.loadingPanel').remove();
+    $(this).after($(flash));
+  });
+
+}
 
 function CreateFlashMessage (myFlashType, myFlashMessage)
 {
-  var flash_type = '<div class="alert fade in';
+  var flash_type = '<div class="alert alert-';
   var flass_mess = '"><button class="close" data-dismiss="alert">&times;</button>';
   var flash_end = '</div>';
   var flash = flash_type + myFlashType + flash_mess + myFlashMessage + flash_end;

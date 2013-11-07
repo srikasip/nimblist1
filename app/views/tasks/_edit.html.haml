@@ -1,6 +1,6 @@
 - model_class = Task
 
-= form_for @task, :html => { :class => 'form-horizontal' } do |f|
+= form_for @task, :remote=>true, :html => { :class => 'form-horizontal task_edit_form' } do |f|
   .item-details-row
     = f.check_box :is_complete, :class=>'task_is_complete'
     %span
