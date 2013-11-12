@@ -9,11 +9,34 @@
   padding-bottom:5px;
 
   border-bottom:1px solid #00000;
+  cursor:pointer;
 }
+.item_row:hover
+{
+  background-color:#CCCCCC;
+}
+
+.item_row a:link
+{
+  color:#333333;
+}
+.item_row a:hover
+{
+  background-color:Transparent;
+  text-decoration:none;
+}
+.item_row a:visited
+{
+  color:#333333;
+}
+
 .item-selected
 {
   background-color:#5BC0DE;
 }
+
+
+
 .my-tasks
 {
 }

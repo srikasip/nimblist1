@@ -1,4 +1,6 @@
 Samplesite1::Application.routes.draw do
+  resources :feedbacks
+
   resources :mailguns
 
   resources :tasks

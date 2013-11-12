@@ -14,7 +14,6 @@
         %li.mytag{:class=> @activeTag==tag.id ? 'active' : ''}
           =link_to tag.name, :active_tag=>tag.id
 
-
   .my-task{ :class => @task ? 'span5' : 'span10' }
     %h4= "My Tasks"
     -@tasks.each do |task|
