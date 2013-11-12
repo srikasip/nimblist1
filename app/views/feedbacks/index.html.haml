@@ -13,13 +13,13 @@
   %tbody
     - @feedbacks.each do |feedback|
       %tr
-        %td= link_to feedback.id, feedback_path(feedback)
-        %td= feedback.name
-        %td= feedback.email
-        %td= feedback.comment
-        %td=l feedback.created_at
-        %td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_feedback_path(feedback), :class => 'btn btn-mini'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), feedback_path(feedback), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'
+        %a
+          %td= link_to feedback.id, feedback_path(feedback)
+          %td= link_to feedback.name, feedback_path(feedback)
+          %td= link_to feedback.email, feedback_path(feedback)
+          %td= link_to feedback.comment, feedback_path(feedback)
+          %td=l feedback.created_at
+          %td
+            = link_to t('.edit', :default => t("helpers.links.edit")), edit_feedback_path(feedback), :class => 'btn btn-mini'
 
 = link_to t('.new', :default => t("helpers.links.new")), new_feedback_path, :class => 'btn btn-primary'

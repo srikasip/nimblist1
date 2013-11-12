@@ -57,9 +57,16 @@ html, body {
 a.no-hover-back:hover
 {
     background-color:Transparent;
+    color:inherit;
+    text-decoration:none;
 }
 img.tiny_image
 {
   height:16px;
   width:16px;
 }
+
+
+
+
+

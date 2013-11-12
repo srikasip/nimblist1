@@ -1,24 +1,28 @@
 %footer.footer.navbar-fixed-bottom
   .container-fluid
-    .btn-group.pull-right{:style=>'margin-top:5px; '}
+    .btn-group.dropup.pull-right{:style=>'margin-top:5px; '}
       .btn
-        =link_to 'Home', root_path
+        =link_to 'Home', root_path, :class=>'no-hover-back'
       .btn
-        =link_to 'About', static_pages_about_path
+        =link_to 'About', static_pages_about_path, :class=>'no-hover-back'
       .btn
-        =link_to 'MailGun', new_mailgun_path
+        =link_to 'MailGun', new_mailgun_path, :class=>'no-hover-back'
       -if current_user
         .btn
-          =link_to 'My Tasks', tasks_path
+          =link_to 'My Tasks', tasks_path, :class=>'no-hover-back'
         -if current_user.is_admin
           .btn
-            =link_to 'All Feedback', feedbacks_path
+            =link_to 'Users', users_path, :class=>'no-hover-back'
           .btn
-            =link_to 'Users', users_path
+            =link_to 'All Feedback', feedbacks_path, :class=>'no-hover-back'
         -else
-          .btn=link_to 'My Feedback', feedbacks_path
+          .btn=link_to 'New Feedback', new_feedback_path, :class=>'no-hover-back'
+          .btn.dropdown-toggle(data-toggle="dropdown")
+            %span.caret
+          %ul.dropdown-menu
+            %li=link_to 'All my Feedback', feedbacks_path
       -else
         .btn
-          =link_to 'Submit Feedback', new_feedback_path
+          =link_to 'Give Feedback', new_feedback_path, :class=>'no-hover-back'
     %p.navbar-text
       Everyone deserves to become her best self

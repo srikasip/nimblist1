@@ -10,7 +10,7 @@
   .control-group
     = f.label :comment, :class => 'control-label'
     .controls
-      = f.text_field :comment, :class => 'text_field'
+      = f.text_area :comment, :class => 'text_field'
   .form-actions
     = f.submit nil, :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), root_path, :class => 'btn'
