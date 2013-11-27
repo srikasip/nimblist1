@@ -61,8 +61,8 @@ class EmailHandlerController < ApplicationController
 
       Mailgun.create(:subject => params['subject'], :sender => params['sender'], :recipient => params['recipient'], :stripped_text => params['stripped-text'], :body_plain => params['body-plain'])
       #Mailgun.create(:subject => mailgun['subject'], :sender => mailgun['sender'], :recipient => mailgun['recipient'], :stripped_text => mailgun['stripped-text'], :body_plain => mailgun['body-plain'])
-      redirect_to :forward_on_email
-      #render :text=>'Success', :status=>:ok
+      #redirect_to :forward_on_email
+      render :text=>'Success', :status=>:ok
     end
   end
 
@@ -160,6 +160,7 @@ class EmailHandlerController < ApplicationController
       return tags
     end
 
+
     def get_line_items(email_text)
       items = Array.new
       if email_text
@@ -181,4 +182,9 @@ class EmailHandlerController < ApplicationController
       return items
     end
 
+
+    def get_item_deadline(item_line)
+      #if !item_line.blank?
+      #end
+    end
 end

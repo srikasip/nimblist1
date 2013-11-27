@@ -16,7 +16,6 @@ class TasksController < ApplicationController
     end
     @tasks = current_user.tasks(@activeTag)
     @tags = current_user.tags
-
   end
 
   def add_tag
@@ -30,9 +29,8 @@ class TasksController < ApplicationController
       format.json { render :json => {:success => true, :html=> 'Success'}}
       format.html { render 'Success' }
     end    
-
-
   end
+
   def remove_tag
     task_id = params[:task_id]
     tag_name = params[:tag_name]
