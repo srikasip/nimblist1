@@ -1,0 +1,9 @@
+%h4= "my tags"
+
+.nav.nav-pills.nav-stacked
+  %li.mytag{:class=> @activeTag==0 ? 'active' : ''}
+    =link_to '#all tags', :active_tag=>'0'
+
+  -@tags.each do |tag|
+    %li.mytag{:class=> @activeTag==tag.id ? 'active' : ''}
+      =link_to tag.name, :active_tag=>tag.id
